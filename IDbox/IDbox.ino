@@ -7,13 +7,13 @@
 #define FIREBASE_AUTH "n2CdhEPc92uqSqPpitpORxrw75XdBhZy8ejos8Cs"
 #define SS_PIN 4 
 #define RST_PIN 5
-const char* ssid = "Ary"; 
-const char* password = "12345678"; 
+const char* ssid = "Arywifi"; 
+const char* password = "qwertyuiop"; 
 MFRC522 mfrc522(SS_PIN, RST_PIN); 
 virtuabotixRTC myRTC(D3, D4, D8);
 void setup() {
   Serial.begin(9600);
-  myRTC.setDS1302Time(10, 41, 59, 5, 29, 11, 2018);
+ //myRTC.setDS1302Time(14, 10, 00, 1, 23, 02, 2019);
   pinMode(D0,OUTPUT);
   SPI.begin();
   mfrc522.PCD_Init();
@@ -31,7 +31,7 @@ void setup() {
 
 void loop() {
   myRTC.updateTime(); 
-  String ho, mi, se, di, mo, ye;
+   String ho, mi, se, di, mo, ye;
   if (myRTC.hours < 10){ho = "0"+(String)myRTC.hours;}else{ho = (String)myRTC.hours;}
   if (myRTC.minutes < 10){mi = "0"+((String)myRTC.minutes);}else{mi = (String)myRTC.minutes;}
   if (myRTC.seconds < 10){se = "0"+((String)myRTC.seconds);}else{se = (String)myRTC.seconds;}
@@ -40,7 +40,7 @@ void loop() {
   if (myRTC.year < 10){ye = "0"+((String)myRTC.year);}else{ye = (String)myRTC.year;} 
    String t = ho+":"+mi+":"+se;
    String d = di+"/"+mo+"/"+ye;
-   String da = di+" "+mo+" "+ye;
+   String da = ye+"/"+mo+"/"+di;
    
    if ( ! mfrc522.PICC_IsNewCardPresent()) 
   {
@@ -71,23 +71,25 @@ void loop() {
   delay(200);
   digitalWrite(D0, LOW);
   delay(200);
-  //Firebase.setString("cod", id);
-  if (Firebase.getString(url+"/a") == "Sim"){ 
+ Firebase.setString("cod", id);
+  if (Firebase.getString(url+"/a_Presente") == "Sim"){
+    String nome = Firebase.getString(url+"/c_Nome");
+    Serial.print(nome);
+    String estado = "Saida";
     String data = t+" "+d;
-    Firebase.setString(url+"/a", "Nao");
-    Firebase.setString(url+"/f", d);
-    String nome = Firebase.getString(url+"/c");
-    //Firebase.pushString("logs/"+nome+"/"+da, "Saida "+t);
+    Firebase.setString(url+"/a_Presente", "Nao");
+    Firebase.setString(url+"/f_Ultimo", d);
+    Firebase.pushString("logs/"+nome+"/"+da, estado+" "+t);
     delay(3000);
-    }else if (Firebase.getString(url+"/a") == "Nao") {
-    Firebase.setInt(url+"/e", Firebase.getInt(url+"/e")+1);
+    }else if (Firebase.getString(url+"/a_Presente") == "Nao"){
+    String nome = Firebase.getString(url+"/c_Nome");
+    Serial.print(nome);
+    Firebase.setInt(url+"/e_Contagem", Firebase.getInt(url+"/e_Contagem")+1);
     String estado = "Entrada";
     String data = t+" "+d;
-    Firebase.setString(url+"/a", "Sim");
-    Firebase.setString(url+"/f", d);
-     String nome = Firebase.getString(url+"/c");
-    //Firebase.pushString("logs/"+nome+"/"+da, "Entrada "+t);
+    Firebase.setString(url+"/a_Presente", "Sim");
+    Firebase.setString(url+"/f_Ultimo", d);
+    Firebase.pushString("logs/"+nome+"/"+da, estado+" "+t);
     delay(3000);
     }
-  
 }

@@ -1,4 +1,3 @@
-
 (function() {
   const config = {
     apiKey: "AIzaSyCSteal3DSLrenQgQFaWr-BHZKCl9kHl8I",

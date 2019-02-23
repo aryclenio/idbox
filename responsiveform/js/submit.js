@@ -26,21 +26,15 @@ function submitForm(e){
     alert("Aluno Cadastrado com Sucesso");
     document.getElementById('contactForm').reset();
 }
-//Read files from DB
-firebase.database().ref().child("cod").on("value", snap =>{
-  var cod = snap.val();
-  document.getElementById('id').value = cod;
-});
 
 //Saving the form
 function saveMessage(id, name, email, mat){
     firebase.database().ref('id/'+id).set({
-       a_Presente: "Nao",
-       b_Matricula: mat,
-       c_Nome: name,
-       d_Email: email,
-       e_Contagem: "0",
-       f_Ultimo: "--/--/--"
+       a: "Não",
+       b: mat,
+       c: name,
+       d: email,
+       e: "0"
     });
 }
 
