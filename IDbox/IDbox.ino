@@ -7,8 +7,8 @@
 #define FIREBASE_AUTH "n2CdhEPc92uqSqPpitpORxrw75XdBhZy8ejos8Cs"
 #define SS_PIN 4 
 #define RST_PIN 5
-const char* ssid = "Arywifi"; 
-const char* password = "qwertyuiop"; 
+const char* ssid = "Ary"; 
+const char* password = "12345678"; 
 MFRC522 mfrc522(SS_PIN, RST_PIN); 
 virtuabotixRTC myRTC(D3, D4, D8);
 void setup() {

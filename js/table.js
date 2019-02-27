@@ -10,10 +10,6 @@
 
   };
 
-  firebase.initializeApp(config);
-  const bigTextEvaluationStudents = document.getElementById('id');
-  const dbBigTextEvaluationStudentsRef = firebase.database().ref().child('id');
-  dbBigTextEvaluationStudentsRef.on('value', snap => bigTextEvaluationStudents.innerText = snap.val());
 
   var table = document.querySelector('#table1 tbody');
   const dbEvaluationStudentsRef = firebase.database().ref().child('id');
