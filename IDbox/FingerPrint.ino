@@ -1,10 +1,3 @@
-/*
- * Q0000
- * AUTOR:   BrincandoComIdeias
- * LINK:    https://www.youtube.com/brincandocomideias ; https://cursodearduino.net/
- * SKETCH:  Leitorbiométrico
- * DATA:    21/11/2018
- */
 
 // INCLUSÃO DAS BIBLIOTECAS
 #include <Adafruit_Fingerprint.h>
